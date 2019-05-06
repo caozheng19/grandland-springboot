@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout">
+<head>
+    <title>hello</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!--/*@thymesVar id="name" type="java.lang.String"*/-->
+<div class="container" style="margin-top: 100px">
+    <table class="table table-striped">
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>操作</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="user : ${pageInfo.list}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.gender}"></td>
+            <td><a th:href="@{'/CRUD1/modify/'+${user.name}}">编辑</a></td>
+            <td><a th:href="@{'/CRUD1/delete/'+${user.id}}">删除</a></td>
+        </tr>
+    </table>
+
+    <nav>
+        <ul class="pagination" style="margin-left: 410px">
+            <li>
+                <a th:if="${not isFirstPage}" th:href="@{/CRUD1/list(pageNum=${pageNum-1})}" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+                <a th:if="${isFirstPage}" href="javascript:void(0);" aria-label="Previous">
+                    <span aria-hidden="true">上一页</span>
+                </a>
+            </li>
+
+            <li th:each="pageNo : ${#numbers.sequence(1, totalPages)}">
+                <a th:if="${pageNum eq pageNo}" th:href="@{/CRUD1/list(pageNum=${pageNo},pageSize=${pageSize})}">
+                    <span th:text="${pageNo}"></span>
+                </a>
+
+                <a th:if="${not (pageNum eq pageNo)}" th:href="@{/CRUD1/list(pageNum=${pageNo},pageSize=${pageSize})}">
+                    <span th:text="${pageNo}"></span>
+                </a>
+            </li>
+
+            <li >
+                <!--<a th:href="@{/CRUD1/listCategory(start=${page.pageNum-1})}">[上一页]</a>-->
+                <a th:if="${not isLastPage}" th:href="@{/CRUD1/list(pageNum=${pageNum+1})}" aria-label="Next">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+                <a th:if="${isLastPage}" href="javascript:void(0);" aria-label="Next">
+                    <span aria-hidden="true">下一页</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+</div>
+<div class="container" style="margin-left:583px">
+    <nav>
+        <ul class="pagination">
+            <li >
+                <!--<a th:href="@{/CRUD1/listCategory(start=${page.pageNum-1})}">[上一页]</a>-->
+                <a  th:href="@{/CRUD1/form}" aria-label="Next">
+                    <span aria-hidden="true">增加信息</span>
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Gender</td>
+        <td>Job</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${userModel.userList.size()} eq 0">
+        <td colspan="3">没有用户信息！</td>
+    </tr>
+    <tr th:each="user:${userModel.userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.gender}"></td>
+        <td th:text="${user.job}"></td>
+
+        <td >
+            <a th:href="@{'/CRUD1/delete/'+${user.id}}">删除</a>
+            <a th:href="@{'/CRUD1/modify/'+${user.name}}">修改</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/CRUD1/form}">创建用户</a>
+</div>
+</body>
+</html>
